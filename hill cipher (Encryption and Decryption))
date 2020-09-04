@@ -1,0 +1,117 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<iostream.h>
+
+void main()
+{
+int i,j,key[5][5],ikey[5][5],row,col,plen,suc;
+int devide,count,h,k,no,p1[100],e1[100],d1[100],m,pp[10],temp;
+char p[100],e[100],d[100],clen,det;
+clrscr();
+
+
+
+
+
+printf("Enter your plaintext::::::::");
+gets(p);
+plen=strlen(p);
+
+printf("\n HOW MANY SUCCESSIVE ELMENTS YOU WILL TAKE IN PLAINTEXT??");
+scanf("%d",&suc);
+
+row=suc;
+col=suc;
+
+printf("\n ENTER ELEMENTS OF KEY MATRIX (row by row)::::");
+for(i=0;i<row;i++)
+for(j=0;j<col;j++)
+scanf("%d",&key[i][j]);
+
+/*for(i=0;i<row;i++)
+{printf("\n");
+for(j=0;j<col;j++)
+printf(" %d ",key[i][j]);
+}
+*/
+devide=(plen+1)/suc;
+
+count=0;
+no=0;
+for(h=0;h<devide;h++)
+{
+  for(i=0;i<suc;i++)
+  { if(p[count]!='\0')
+    {p1[i]=p[count]-97;
+    count++;
+    }
+
+  }
+
+  for(i=0;i<suc;i++)
+  {   e1[no]=0;
+      for(k=0;k<suc;k++)
+      {e1[no]=e1[no]+(key[i][k]*p1[k]);
+      }
+      no++;
+  }
+
+}
+printf("\n PLAIN TEXT::::::::::::::::::::::::::::");
+puts(p);
+
+printf("\n ENCRYPTED TEXT::::::::::::::::::::::::");
+for(i=0;i<plen;i++)
+{e[i]=(e1[i]%26)+97;
+printf("%c",e[i]);
+}
+
+//decryption part;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+clen=strlen(e);
+devide=(clen+1)/suc;
+
+
+
+//start decryption:::::::::::::
+printf("\n ENter inverse matrix values");
+for(i=0;i<suc;i++)
+for(j=0;j<suc;j++)
+{scanf("%d",&ikey[i][j]);
+}
+count=0;
+no=0;
+for(h=0;h<devide;h++)
+{
+  for(i=0;i<suc;i++)
+  { if(e[count]!='\0')
+    {p1[i]=e[count]-97;
+    count++;
+    //printf("p %c",p1[i]);
+    }
+
+  }
+
+  for(i=0;i<suc;i++)
+  {   d1[no]=0;
+      for(k=0;k<suc;k++)
+      {d1[no]=d1[no]+(ikey[i][k]*p1[k]);
+      }
+      no++;
+  }
+
+}
+
+printf("\n DECRYPTED TEXT::::::::::::::::::::::::");
+for(i=0;i<plen;i++)
+
+
+{d[i]=(d1[i]%26)+97;
+printf("%c",d[i]);
+}
+
+
+getch();
+}
